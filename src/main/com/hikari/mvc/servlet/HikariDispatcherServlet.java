@@ -36,12 +36,16 @@ public class HikariDispatcherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
+        this.doPost(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        try {
+            doDispatch(req, resp);
+        } catch (Exception e) {
+            resp.getWriter().write("500 ! Server Exception");
+        }
     }
 
     private void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
